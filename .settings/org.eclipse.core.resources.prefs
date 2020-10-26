@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/jobrecipe/admin/AdminController.java=UTF-8
+encoding//src/main/java/com/jobrecipe/admin/service/AdminService.java=UTF-8
+encoding//src/main/java/com/jobrecipe/admin/vo/CompanyVO.java=UTF-8
+encoding//src/main/java/com/jobrecipe/advertisement/AdvertisementController.java=UTF-8
+encoding//src/main/java/com/jobrecipe/advertisement/service/AdvertisementService.java=UTF-8
+encoding//src/main/java/com/jobrecipe/profile/controller/ProfileController.java=UTF-8
+encoding//src/main/java/com/jobrecipe/profile/vo/ProfileVO.java=UTF-8

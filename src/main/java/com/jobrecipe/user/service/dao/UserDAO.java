@@ -1,0 +1,36 @@
+package com.jobrecipe.user.service.dao;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Repository;
+
+import com.jobrecipe.user.vo.UserVO;
+
+@Repository
+public interface UserDAO {
+	
+	//회원가입
+	public int userEmailCheck(String u_email);
+	
+	public void insertMember(UserVO userVO);
+	
+	//로그인체크
+	public UserVO signinCheck(UserVO vo1);
+	//로그인
+	public UserVO signin(UserVO vo1);
+	//로그아웃
+	public void logout(HttpSession session);
+	//이메일체크
+	public void emailCheck(String u_email);
+	
+	public UserVO viewMember(UserVO vo1);
+	
+	public void pass_change(UserVO vo1)throws Exception;
+	
+	public int findEmail(String u_email);
+	//회원탈퇴
+	public void memberDelete(UserVO vo1);
+	//이메일 수신 체크
+	public void newsCheck(UserVO vo);
+
+}

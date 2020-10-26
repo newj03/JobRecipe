@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jobrecipe.review.service.dao.ReviewDAO">
+	
+	<!-- 모든 리뷰 -->
+	<select id="getAllReview" resultType="reviewVO">
+		select * from (select rownum rn, rev_no, rev_name, rev_state, rev_job, rev_emp, rev_star, rev_title, rev_advan, rev_weak, rev_wish, rev_cnt, rev_date
+		from (select * from rec_review where rev_name=#{rev_name} order by rev_no desc)) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 리뷰 추가 -->
+	<insert id="insertReview">
+		insert into rec_review (rev_no, rev_name, u_no, rev_state, rev_job, rev_emp, rev_star, rev_title, rev_advan, rev_weak, rev_wish)
+		values (revno_seq.nextval, #{rev_name}, 1, #{rev_state}, #{rev_job}, #{rev_emp}, #{rev_star}, #{rev_title}, #{rev_advan}, #{rev_weak}, #{rev_wish})
+		<!-- 임의로 u_no 1로 설정  -->
+	</insert>
+	
+	<!-- 리뷰 추천수 증가 -->
+	<update id="reviewCntUp">
+		update rec_review set rev_cnt=rev_cnt+1 where rev_no=#{rev_no}
+	</update>
+	
+	<!-- 리뷰 한개 -->
+	<select id="getOneReview" resultType="reviewVO">
+		select rev_no, rev_name, rev_state, rev_job, rev_emp, rev_star, rev_title, rev_advan, rev_weak, rev_wish, rev_cnt, rev_date
+		from rec_review where rev_no=#{rev_no}
+	</select>
+	
+	<!-- 리뷰 개수 -->
+	<select id="getReviewCount" resultType="int">
+		select count(*) from rec_review where rev_name=#{rev_name}
+	</select>
+	
+	<!-- 평점 평균 -->
+	<select id="getReviewStar" resultType="String">
+		select round(avg(rev_star), 1) from rec_review where rev_name=#{rev_name}
+	</select>
+	
+	<!-- 각 회사 평점 평균 -->
+	<update id="companyStarUpdate">
+		update rec_company set c_star = (select round(avg(rev_star), 1) from rec_review where rev_name=#{rev_name}) where c_name=#{rev_name}
+	</update>
+
+	
+	
+</mapper>

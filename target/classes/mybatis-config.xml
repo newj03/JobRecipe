@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 
+		주석된 것들은 전부 root-context에서 설정됨
+	-->
+	
+	<!-- <properties resource="db.properties" /> -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" /> <!-- 널 처리 -->
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.jobrecipe.user.vo.UserVO" alias="userVO" />
+		<typeAlias type="com.jobrecipe.profile.vo.ProfileVO" alias="profileVO" />
+		<typeAlias type="com.jobrecipe.admin.vo.CompanyVO" alias="companyVO" />
+		<typeAlias type="com.jobrecipe.admin.vo.AdvertiseVO" alias="advertiseVO "/>
+		<typeAlias type="com.jobrecipe.advertisement.vo.AdvertisementVO" alias="advertisementVO"></typeAlias>
+		<typeAlias type="com.jobrecipe.review.vo.ReviewVO" alias="reviewVO"></typeAlias>
+	</typeAliases>
+	
+	<!-- <environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClassName}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="#package/#mapper.xml" />
+	</mappers> -->
+</configuration>

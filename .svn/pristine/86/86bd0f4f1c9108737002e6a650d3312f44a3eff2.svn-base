@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jobrecipe.user.service.dao.UserDAO">
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember">
+		<selectKey keyProperty="u_no" order="BEFORE" resultType="int">
+			SELECT users_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_users(u_no, u_email, u_pw, u_privateInfo, u_newsLetter) 
+		VALUES(#{u_no}, #{u_email}, #{u_pw}, #{u_privateInfo}, #{u_newsLetter})
+	</insert>
+	
+	<!-- 로그인체크 -->
+	<select id="signinCheck" resultType="userVO">
+		SELECT u_email,u_pw from rec_users
+		where u_email = #{u_email} and u_pw = #{u_pw}
+	</select>
+
+	<!-- 비밀번호 찾기 -->
+	<select id="emailCheck">
+		select u_email from rec_users where u_email =
+		#{u_email}
+	</select>
+
+	<!-- 로그인 정보 -->
+	<select id="viewMember"
+		resultType="com.jobrecipe.user.vo.UserVO">
+		select
+		u_email
+		from users
+		where u_email = #{u_email} and u_pw = #{u_pw}
+	</select>
+	
+	<!-- 비밀번호 변경 관련 mapper -->
+    <update id = "pass_change">
+    	update rec_users set u_pw=#{u_pw} where u_email=#{u_email}
+    </update>
+	
+	<select id="findEmail" parameterType="String" resultType="Integer">
+		select count(*) from rec_users where u_email=#{u_email}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="memberDelete">
+		DELETE FROM rec_users
+		WHERE u_email = #{u_email} and u_pw = #{u_pw}
+	</delete>
+	
+	<update id = "newsCheck">
+		update rec_users set u_newsLetter = #{u_newsLetter} where u_email = #{u_email}
+	</update>
+</mapper>	
+

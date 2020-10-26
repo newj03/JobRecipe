@@ -1,0 +1,140 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>공고 추가</title>
+	<script src="<c:url value='/resources/js/jquery-3.1.1.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/bootstrap.js'/>"></script>
+	<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.css'/>">
+	<script type="text/javascript" src="<c:url value="/resources/js/jobJS.js"/>"></script>
+	<link type="text/css" href="<c:url value="/resources/css/jobCSS.css" />" rel="stylesheet">
+	
+	<script>
+		var adminMsg = "${msg}";
+		if(adminMsg == "success")
+			alert("공고가 추가되었습니다.");
+	</script>
+</head>
+<body>
+
+	<form action="insertAdvertise.do" method="post" onsubmit="return admin_addAdvertise()">
+	<table>
+		<tr>
+			<th>채용 제목</th>
+			<td><input type="text" name="ad_title" required="required"></td>
+		</tr>
+		<tr>
+			<th>기업명</th>
+			<td><input type="text" name="ad_name" value="${c_name }" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th>마감일</th>
+			<td><input type="date" name="ad_date" required="required"></td>
+		</tr>
+		<tr>
+			<th>직무</th>
+			<td>
+				<input type="text" id="checkJob" name="ad_job" required="required" placeholder="찾기">
+				<input type="button" id="modalBtn" value="찾기" data-toggle="modal" data-target="#myModal">
+ 
+			    <div class="modal fade" id="myModal" role="dialog">
+			    	<div class="modal-dialog">
+			    		<div class="modal-content"> 
+			    			<div class="modal-header">
+			    				<b>직무 선택</b>
+			    				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+			    			</div>
+			    			<div class="modal-body">
+			    				<p>
+			    					<label><input type="radio" name="job" value="QA">QA</label> &nbsp;&nbsp;&nbsp;
+						    		<label><input type="radio" name="job" value="프로젝트매니저">프로젝트매니저</label> <br>
+						    		<label><input type="radio" name="job" value="모바일앱개발">모바일앱개발</label> &nbsp;&nbsp;&nbsp;
+						    		<label><input type="radio" name="job" value="웹개발">웹개발</label> <br>
+						    		<label><input type="radio" name="job" value="DBA">DBA</label> &nbsp;&nbsp;&nbsp;
+						    		<label><input type="radio" name="job" value="시스템엔지니어">시스템엔지니어</label> <br>
+						    		<label><input type="radio" name="job" value="소프트웨어엔지니어">소프트웨어엔지니어</label> &nbsp;&nbsp;&nbsp;
+						    		<label><input type="radio" name="job" value="하드웨어엔지니어">하드웨어엔지니어</label> <br>
+						    		<label><input type="radio" name="job" value="네트워크/보안/운영">네트워크/보안/운영</label> &nbsp;&nbsp;&nbsp;
+						    		<label><input type="radio" name="job" value="게임개발">게임개발</label> <br>
+						    		
+						    		<input type="button" value="선택" data-dismiss="modal" onclick="admin_job_check()">
+			    				</p>
+			    			</div>
+			    		</div>
+			    	</div>		
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>경력</th>
+			<td>
+				<label><input type="checkbox" name="ad_carrBae" value="신입">신입</label>
+				<label><input type="checkbox" name="ad_carrBae" value="경력">경력</label>
+				<label><input type="checkbox" name="ad_carrBae" value="경력무관">경력무관</label>
+			</td>
+		</tr>
+		<tr>
+			<th>고용형태</th>
+			<td>
+				<div class="adminEmpDiv">
+					<input type="radio" class="emp" id="emp1" name="ad_emp" value="정규직"><label for="emp1">정규직</label>
+					<input type="radio" class="emp" id="emp2" name="ad_emp" value="계약직"><label for="emp2">계약직</label>
+					<input type="radio" class="emp" id="emp3" name="ad_emp" value="인턴"><label for="emp3">인턴</label>			
+				</div>			
+			</td>
+		</tr>
+		<tr>
+			<th>스킬</th>
+			<td><input type="text" name="ad_skill"></td>
+		</tr>
+		<tr>
+			<th>주요업무</th>
+			<td><input type="text" name="ad_upmu"></td>
+		</tr>
+		<tr>
+			<th>자격요건</th>
+			<td>
+				<div id="lienDiv">
+					<input type="text" id="lien1" name="lien1"><input type="button" id="lienBtn" value="추가" onclick="admin_addLien()"> <br>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>우대사항</th>
+			<td>
+				<div id="dealDiv">
+					<input type="text" name="deal1"><input type="button" id="dealBtn" value="추가" onclick="admin_addDeal()"> <br>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>채용절차</th>
+			<td><input type="text" name="ad_pro"></td>
+		</tr>
+		<tr>
+			<th>복리후생</th>
+			<td>
+				<div id="cpDiv">
+					<input type="text" name="cp1"><input type="button" id="cpBtn" value="추가" onclick="admin_addCp()"> <br>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>기타</th>
+			<td>
+				<div id="ectDiv">
+					<input type="text" name="ect1"><input type="button" id="ectBtn" value="추가" onclick="admin_addEct()"> <br>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<input type="submit" value="추가">
+	</form>
+	
+<!-- 유진 -->
+</body>
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jobrecipe.advertisement.service.dao.AdvertisementDAO">
+
+	<resultMap type="com.jobrecipe.company.vo.CompanyVO" id="companyVO">
+		<result column="c_name" property="c_name" />
+		<result column="c_loc" property="c_loc"/>
+		<result column="c_addr" property="c_addr"/>
+		<result column="c_star" property="c_star"/>		
+	</resultMap>
+	
+	<resultMap type="com.jobrecipe.advertisement.vo.AdvertisementVO" id="advertisementVO">
+		<result column="ad_no" property="ad_no"/>
+		<result column="ad_name" property="ad_name"/>
+		<result column="ad_title" property="ad_title"/>
+		<result column="ad_date" property="ad_date"/>
+		<result column="ad_job" property="ad_job"/>
+		<result column="ad_carr" property="ad_carr"/>
+		<result column="ad_emp" property="ad_emp"/>
+		<result column="ad_skill" property="ad_skill"/>
+		<result column="ad_upmu" property="ad_upmu"/>
+		<result column="ad_lien" property="ad_lien"/>
+		<result column="ad_deals" property="ad_deals"/>
+		<result column="ad_pro" property="ad_pro"/>
+		<result column="ad_cp" property="ad_cp"/>
+		<result column="ad_ect" property="ad_ect"/>
+		<result column="ad_dead" property="ad_dead"/>
+		<result column="ad_save" property="ad_save"/>
+		<collection property="companyVO" resultMap="companyVO" />
+	</resultMap>
+	
+	<!-- 전체출력 -->
+	<select id="searchInfo" parameterType="advertisementVO" resultMap="advertisementVO">
+		select c_addr,ad_job, ad_name, c_loc, ad_upmu, ad_lien, ad_date, ad_title
+		from rec_company c , rec_ad ad
+		where c.c_name = ad.ad_name 
+		order by ad_date, ad_dead
+	</select>
+	
+	<!-- 기업정보 출력 -->
+	<select id="aAllInfo" parameterType="advertisementVO" resultMap="advertisementVO">
+		select ad_title, ad_name, ad_date, ad_job, ad_carr, ad_emp, ad_skill, ad_upmu, ad_lien, ad_deals, ad_pro, ad_ect 
+	    from rec_ad
+		where ad_name = #{ad_name}
+	<!-- 	<choose>
+			<when test="ad_title != null">ad_title = #{ad_title}</when>
+		</choose>
+		<choose>
+			<when test="ad_name != null">ad_name = #{ad_name}</when>
+		</choose>  -->
+
+		
+	</select>
+	
+	<!-- 마감일순 -->
+	<select id="cInfo_Date" parameterType="advertisementVO" resultMap="advertisementVO">
+		select ad_no,c_name,ad_title,ad_date,c_star from 
+		(select ad_no,c_name,ad_title,ad_date,c_star,row_number() over(order by ad_no desc) 
+		as rnum from rec_ad join rec_company on ad_name = c_name and ad_dead=1)
+		where rnum between #{rowStart} and #{rowEnd}
+		order by to_date(ad_date, 'RR/MM/DD HH24:MI')-sysdate
+	</select>	
+	
+	<!-- 평점순 -->
+	<select id="cInfo_Star" resultMap="advertisementVO">
+		select ad_no,c_name,ad_title,ad_date,c_star from 
+		(select ad_no,c_name,ad_title,ad_date,c_star,row_number() over(order by ad_no desc) 
+		as rnum from rec_ad join rec_company on ad_name = c_name and ad_dead=1)
+		where rnum between #{rowStart} and #{rowEnd}
+		order by c_star desc, to_date(ad_date, 'RR/MM/DD HH24:MI')-sysdate
+	</select>
+	
+	<select id="aInfo" parameterType="advertisementVO" resultMap="advertisementVO">
+		select ad_title, ad_name, c_loc, c_addr, ad_date, ad_job, ad_carr, ad_emp, ad_skill, ad_upmu, ad_lien, ad_deals, ad_pro, ad_ect 
+	    from rec_ad a, rec_company c
+		where a.ad_name = c.c_name and ad_name=#{ad_name} and ad_title=#{ad_title}
+	</select>
+	
+	<select id="listCount" resultType="int"> 
+	<![CDATA[
+		select count(ad_NO)
+		  from rec_ad
+		 where ad_no > 0
+	]]>
+	</select>
+
+	
+
+	
+	
+</mapper>

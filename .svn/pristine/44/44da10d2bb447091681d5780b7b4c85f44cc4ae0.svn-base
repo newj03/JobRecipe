@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jobrecipe.admin.service.dao.AdminDAO">
+	<select id="selectCompanyOne" resultType="companyVO"> <!-- 회사 검색 -->
+		select c_name, c_loc, c_addr from rec_company where c_name=#{c_name}
+	</select>
+	
+	<insert id="insertCompany"> <!-- 회사 추가 -->
+		insert into rec_company (c_name, c_loc, c_addr) 
+		values (#{c_name}, #{c_loc}, #{c_addr})
+	</insert>
+	
+	<select id="selectCompanyName" resultType="String"> <!-- 회사명 검색 -->
+		select c_name from rec_company where c_name=#{c_name}
+	</select>
+	
+	<update id="updateCompany"> <!-- 회사 수정 -->
+		update rec_company set c_loc=#{c_loc}, c_addr=#{c_addr} where c_name=#{c_name}
+	</update>
+	
+	<delete id="deleteCompany"> <!-- 회사 삭제 -->
+		delete from rec_company where c_name=#{c_name}
+	</delete>
+	
+	<insert id="insertAdvertise">
+		insert into rec_ad (ad_no, ad_name, ad_title, ad_date, ad_job, ad_carr, ad_emp, ad_skill,
+		ad_upmu, ad_lien, ad_deals, ad_pro, ad_cp, ad_ect) 
+		values (adno_seq.nextval, #{ad_name}, #{ad_title}, #{ad_date}, #{ad_job}, #{ad_carr}, #{ad_emp},
+		#{ad_skill}, #{ad_upmu}, #{ad_lien}, #{ad_deals}, #{ad_pro}, #{ad_cp}, #{ad_ect})
+	</insert>
+</mapper>

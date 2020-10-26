@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jobrecipe.profile.service.dao.ProfileDAO">
+	
+	<!-- 회원가입시 프로필 정보 -->
+	<insert id="insertProfile">
+		<selectKey keyProperty="pro_no" order="BEFORE" resultType="int">
+			SELECT pro_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_profiles(pro_no, u_no, pro_gender, pro_birthYear, pro_career, pro_imgPath) 
+		VALUES(#{pro_no}, #{u_no}, #{pro_gender}, #{pro_birthYear}, #{pro_career}, 'C:\\Users\\geekh\\Desktop\\jobRecipe_workspace\\img_upload\\default_user.png')
+	</insert>
+	
+	<!-- 작성된 모든 이력서의 간략한 정보를 들고온다. -->
+	<select id="getAllResumes" parameterType="int" resultType="com.jobrecipe.profile.vo.ResumeVO">
+		SELECT * FROM rec_resumes WHERE u_no=#{u_no} ORDER BY write_date DESC
+	</select>
+	
+	<!-- 이력서 : 기본 정보를 가지고옴 -->
+	<select id="getProfile" parameterType="int" resultType="com.jobrecipe.profile.vo.ProfileVO">
+		SELECT * FROM rec_profiles WHERE u_no=#{u_no}
+	</select>
+	
+	<!-- 이력서 : 학력 정보를 가지고옴 -->
+	<select id="getEducation" parameterType="int" resultType="com.jobrecipe.profile.vo.EducationVO">
+		SELECT * FROM rec_educations WHERE e_no=#{e_no}
+	</select>
+	
+	<!-- 이력서 : 경력 정보를 가지고옴 -->
+	<select id="getCareer" parameterType="int" resultType="com.jobrecipe.profile.vo.CareerVO">
+		SELECT * FROM rec_careers WHERE car_no=#{car_no}
+	</select>
+	
+	<!-- 이력서 : 활동 및 수상 내역 정보를 가지고옴 -->
+	<select id="getActAward" parameterType="int" resultType="com.jobrecipe.profile.vo.ActAwardVO">
+		SELECT * FROM rec_actawards WHERE act_no=#{act_no}
+	</select>
+	
+	<!-- 이력서 : 자격증 및 기타 정보를 가지고옴 -->
+	<select id="getCertiOther" parameterType="int" resultType="com.jobrecipe.profile.vo.CertiOtherVO">
+		SELECT * FROM rec_certiothers WHERE cer_no=#{cer_no}
+	</select>
+	
+	<!-- 이력서 : 포트폴리오 정보를 가지고옴 -->
+	<select id="getPortfolio" parameterType="int" resultType="com.jobrecipe.profile.vo.PortfolioVO">
+		SELECT * FROM rec_portfolios WHERE por_no=#{por_no}
+	</select>
+	
+	<!-- 이력서 : 기본 정보(프로필) 업데이트 -->
+	<update id="updateProfile" parameterType="com.jobrecipe.profile.vo.ProfileVO">
+		UPDATE rec_profiles SET 
+		pro_gender = #{pro_gender}, 
+		pro_birthYear = #{pro_birthYear}, 
+		pro_career = #{pro_career}, 
+		pro_occu = #{pro_occu}, 
+		pro_subOccu = #{pro_subOccu}, 
+		pro_skill = #{pro_skill}, 
+		pro_name = #{pro_name}, 
+		pro_email = #{pro_email}, 
+		pro_tel = #{pro_tel}, 
+		pro_imgPath = #{pro_imgPath}, 
+		pro_aboutMe = #{pro_aboutMe} 
+		WHERE pro_no = #{pro_no}
+	</update>
+	
+	<!-- 이력서 : 학력사항 입력 -->
+	<insert id="insertEducation" parameterType="com.jobrecipe.profile.vo.EducationVO">
+		<selectKey keyProperty="e_no" order="BEFORE" resultType="int">
+			SELECT edu_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_educations 
+		VALUES(#{e_no}, #{u_no}, #{e_edate}, #{e_gdate}, #{e_attendcheck}, #{e_sname}, #{e_majordegree}, #{e_description})
+	</insert>
+	
+	<!-- 이력서 : 경력사항 입력 -->
+	<insert id="insertCareer" parameterType="com.jobrecipe.profile.vo.CareerVO">
+		<selectKey keyProperty="car_no" order="BEFORE" resultType="int">
+			SELECT car_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_careers 
+		VALUES(#{car_no}, #{u_no}, #{car_edate}, #{car_rdate}, #{car_inoffice}, #{car_cname}, #{car_department}, #{car_position}, #{car_duty}, #{car_workexp})
+	</insert>
+	
+	<!-- 이력서 : 활동 및 수상내역 입력 -->
+	<insert id="insertActAward" parameterType="com.jobrecipe.profile.vo.ActAwardVO">
+		<selectKey keyProperty="act_no" order="BEFORE" resultType="int">
+			SELECT act_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_actawards 
+		VALUES(#{act_no}, #{u_no}, #{act_sdate}, #{act_edate}, #{act_awardcheck}, #{act_actawardname}, #{act_description})
+	</insert>
+	
+	<!-- 이력서 : 자격증 및 기타 입력 -->
+	<insert id="insertCertiOther" parameterType="com.jobrecipe.profile.vo.CertiOtherVO">
+		<selectKey keyProperty="cer_no" order="BEFORE" resultType="int">
+			SELECT cer_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_certiothers 
+		VALUES(#{cer_no}, #{u_no}, #{cer_item}, #{cer_description})
+	</insert>
+	
+	<!-- 이력서 : 포트폴리오 입력 -->
+	<insert id="insertPortfolio" parameterType="com.jobrecipe.profile.vo.PortfolioVO">
+		<selectKey keyProperty="por_no" order="BEFORE" resultType="int">
+			SELECT por_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_portfolios 
+		VALUES(#{por_no}, #{u_no}, #{por_filepath})
+	</insert>
+	
+	<!-- 이력서 : 이력서 취합 정보 -->
+	<insert id="insertResume" parameterType="com.jobrecipe.profile.vo.ResumeVO">
+		<selectKey keyProperty="res_no" order="BEFORE" resultType="int">
+			SELECT resno_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_resumes
+		VALUES(#{res_no}, #{u_no}, #{res_title}, #{pro_no}, #{e_no}, #{car_no}, #{act_no}, #{cer_no}, #{por_no}, sysdate)
+	</insert>
+	
+	<!-- 이력서 : 특정 이력서의 취합 정보를 불러온다. -->
+	<select id="getResumeInfo" parameterType="int" resultType="com.jobrecipe.profile.vo.ResumeVO">
+		SELECT * FROM rec_resumes WHERE res_no=#{res_no}
+	</select>
+	
+	<!-- 이력서 : 학력사항 수정 -->
+	<update id="updateEducation" parameterType="com.jobrecipe.profile.vo.EducationVO">
+		UPDATE rec_educations SET 
+		e_edate = #{e_edate}, 
+		e_gdate = #{e_gdate}, 
+		e_attendcheck = #{e_attendcheck}, 
+		e_sname = #{e_sname}, 
+		e_majordegree = #{e_majordegree}, 
+		e_description = #{e_description} 
+		WHERE e_no = #{e_no}
+	</update>
+	
+	<!-- 이력서 : 경력사항 수정 -->
+	<update id="updateCareer" parameterType="com.jobrecipe.profile.vo.CareerVO">
+		UPDATE rec_careers SET 
+		car_edate = #{car_edate}, 
+		car_rdate = #{car_rdate}, 
+		car_inoffice = #{car_inoffice}, 
+		car_cname = #{car_cname}, 
+		car_department = #{car_department}, 
+		car_position = #{car_position}, 
+		car_duty = #{car_duty}, 
+		car_workexp = #{car_workexp}
+		WHERE car_no = #{car_no}
+	</update>
+	
+	<!-- 이력서 : 활동 및 수상내역 수정 -->
+	<update id="updateActAward" parameterType="com.jobrecipe.profile.vo.ActAwardVO">
+		UPDATE rec_actawards SET 
+		act_sdate = #{act_sdate}, 
+		act_edate = #{act_edate}, 
+		act_awardcheck = #{act_awardcheck}, 
+		act_actawardname = #{act_actawardname}, 
+		act_description = #{act_description} 
+		WHERE act_no = #{act_no}
+	</update>
+	
+	<!-- 이력서 : 자격증 및 기타 수정 -->
+	<update id="updateCertiOther" parameterType="com.jobrecipe.profile.vo.CertiOtherVO">
+		UPDATE rec_certiothers SET 
+		cer_item = #{cer_item}, 
+		cer_description = #{cer_description} 
+		WHERE cer_no = #{cer_no}
+	</update>
+	
+	<!-- 이력서 : 포트폴리오 수정 -->
+	<update id="updatePortfolio" parameterType="com.jobrecipe.profile.vo.PortfolioVO">
+		UPDATE rec_portfolios SET 
+		por_filepath = #{por_filepath}  
+		WHERE por_no = #{por_no}
+	</update>
+	
+	<!-- 이력서 취합 정보 수정 -->
+	<update id="updateResume" parameterType="com.jobrecipe.profile.vo.ResumeVO">
+		UPDATE rec_resumes SET 
+		res_title = #{res_title}, 
+		write_date = sysdate 
+		WHERE res_no = #{res_no}
+	</update>
+	
+	<!-- 학력사항 삭제 -->
+	<delete id="deleteEducation" parameterType="int">
+		DELETE FROM rec_educations WHERE e_no = #{e_no}
+	</delete>
+	
+	<!-- 경력사항 삭제 -->
+	<delete id="deleteCareer" parameterType="int">
+		DELETE FROM rec_careers WHERE car_no = #{car_no}
+	</delete>
+	
+	<!-- 활동 및 수상내역 삭제 -->
+	<delete id="deleteActAward" parameterType="int">
+		DELETE FROM rec_actawards WHERE act_no = #{act_no}
+	</delete>
+	
+	<!-- 자격증 및 기타 삭제 -->
+	<delete id="deleteCertiOther" parameterType="int">
+		DELETE FROM rec_certiothers WHERE cer_no = #{cer_no}
+	</delete>
+	
+	<!-- 포트폴리오 삭제 -->
+	<delete id="deletePortfolio" parameterType="int">
+		DELETE FROM rec_portfolios WHERE por_no = #{por_no}
+	</delete>
+	
+	<!-- 이력서 취합 정보 삭제 -->
+	<delete id="deleteResume" parameterType="int">
+		DELETE FROM rec_resumes WHERE res_no = #{res_no}
+	</delete>
+	
+	<!-- 이메일 수신 동의 설정 -->
+	<update id = "newsCheck">
+		update rec_users set u_newsLetter = #{u_newsLetter} where u_email = #{u_email}
+	</update>
+	
+	<!-- 비밀번호 변경 관련 mapper -->
+    <update id = "pass_change">
+    	update rec_users set u_pw=#{u_pw} where u_email=#{u_email}
+    </update>
+    
+    <!-- 내가 쓴 전체 리뷰 -->
+    <select id="getAllReview" resultType="reviewVO" parameterType="reviewVO">
+		select * from rec_review where u_no = #{u_no}
+	</select>
+	
+	<!-- 내가 쓴 전체 리뷰 개수를 체크한다. -->
+    <select id="getAllRevCount" resultType="int" parameterType="int">
+	select count(*) from rec_review where u_no = #{u_no}
+	</select>
+	
+	<!-- 내가 쓴 리뷰 중 특정 리뷰를 불러온다. -->
+	<select id="getReview" resultType="reviewVO" parameterType="int">
+		select * from rec_review where rev_no=#{rev_no}
+	</select>
+
+	<!-- 리뷰 수정 -->
+ 	<update id="updateReview" parameterType="reviewVO">
+		update rec_review set
+		rev_state=#{rev_state},
+		rev_job=#{rev_job},
+		rev_emp=#{rev_emp},
+		rev_star=#{rev_star},
+		rev_title=#{rev_title},
+		rev_advan=#{rev_advan},
+    	rev_weak=#{rev_weak},
+   		rev_wish=#{rev_wish}
+   		where rev_no = #{rev_no}
+	</update> 
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		delete from rec_review where rev_no = #{rev_no}
+	</delete>
+	
+	<!-- 기업 검색 -->
+ 	<select id="searchc" resultType="String">
+ 	select c_name from rec_company where c_name = #{rev_name}
+ 	</select>
+
+</mapper>

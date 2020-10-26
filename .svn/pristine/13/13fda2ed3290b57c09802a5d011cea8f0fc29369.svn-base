@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jobrecipe.profile.service.dao.ProfileDAO">
+	
+	<!-- 회원가입시 설문조사 정보 -->
+	<insert id="insertProfile">
+		<selectKey keyProperty="pro_no" order="BEFORE" resultType="int">
+			SELECT pro_sequence.nextval FROM dual
+		</selectKey>
+		INSERT INTO rec_profiles(pro_no, u_no, pro_gender, pro_birthYear, pro_career) 
+		VALUES(#{pro_no}, #{u_no}, #{pro_gender}, #{pro_birthYear}, #{pro_career})
+	</insert>
+	
+	<!-- 이력서 : 기본 정보를 가지고옴 -->
+	<select id="getProfile" parameterType="int" resultType="com.jobrecipe.profile.vo.ProfileVO">
+		SELECT * FROM rec_profiles WHERE u_no=#{u_no}
+	</select>
+	
+	<!-- 이력서 : 학력 정보를 가지고옴 -->
+	<select id="getEducation" parameterType="int" resultType="com.jobrecipe.profile.vo.EducationVO">
+		SELECT * FROM rec_educations WHERE u_no=#{u_no}
+	</select>
+	
+	<!-- 이력서 : 경력 정보를 가지고옴 -->
+	<select id="getCareer" parameterType="int" resultType="com.jobrecipe.profile.vo.CareerVO">
+		SELECT * FROM rec_careers WHERE u_no=#{u_no}
+	</select>
+	
+	<!-- 이력서 : 활동 및 수상 내역 정보를 가지고옴 -->
+	<select id="getActAward" parameterType="int" resultType="com.jobrecipe.profile.vo.ActAwardVO">
+		SELECT * FROM rec_actawards WHERE u_no=#{u_no}
+	</select>
+	
+	<!-- 이력서 : 자격증 및 기타 정보를 가지고옴 -->
+	<select id="getCertiOther" parameterType="int" resultType="com.jobrecipe.profile.vo.CertiOtherVO">
+		SELECT * FROM rec_certiothers WHERE u_no=#{u_no}
+	</select>
+	
+	<!-- 이력서 : 포트폴리오 정보를 가지고옴 -->
+	<select id="getPortfolio" parameterType="int" resultType="com.jobrecipe.profile.vo.PortfolioVO">
+		SELECT * FROM rec_portfolios WHERE u_no=#{u_no}
+	</select>
+	
+	<!-- 이메일 수신 동의 설정 -->
+	<update id = "newsCheck">
+		update rec_users set u_newsLetter = #{u_newsLetter} where u_email = #{u_email}
+	</update>
+	
+	<!-- 비밀번호 변경 관련 mapper -->
+    <update id = "pass_change">
+    	update rec_users set u_pw=#{u_pw} where u_email=#{u_email}
+    </update>
+    
+    <!-- 내가 쓴 리뷰 -->
+    <select id="getReview" resultType="reviewVO" parameterType="reviewVO">
+	select * from rec_review where u_no = #{u_no}
+	</select>
+
+	<!-- 리뷰 업데이트 -->
+ 	<update id="reviewUpdate" parameterType="reviewVO">
+		update rec_review set 
+		
+	</update> 
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="reviewDelete" parameterType="reviewVO">
+		delete from rec_review where u_no = #{u_no}
+	</delete>
+	
+	<!-- 기업 검색 -->
+ 	<select id="searchc" resultType="String">
+ 	select c_name from rec_company where c_name = #{rev_name}
+ 	</select>
+</mapper>

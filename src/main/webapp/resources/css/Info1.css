@@ -1,0 +1,73 @@
+.ad_title {
+	margin: 0;
+	padding: 0;
+	color: #323438;
+	font-weight: bold;
+	border: 1px solid white;
+	width: 620px;
+	font-size: 25px;
+	line-height: 34px;
+	margin-bottom: 6px;
+	max-height: 102px;
+	display: -webkit-box;
+	overflow: hidden;
+	word-break: break-word;
+}
+
+.var {
+	font-size: 13px;
+	color: #e5e6e9;
+	margin: 0 6px;
+	line-height: 20px;
+	vertical-align: top;
+}
+
+.location {
+	font-size: 14px;
+	line-height: 20px;
+	color: #85878c;
+}
+
+.ad_name {
+	font-size: 13px;
+	color: #333;
+	line-height: 20px;
+	vertical-align: top;
+}
+
+
+.job_posting_tab {
+	position: relative;
+	margin-bottom: 28px;
+	border-bottom: 1px solid #e5e6e9;
+}
+
+.job_posting_tab ul {
+    display: flex;
+    flex-direction: row;
+    margin-left: 0px;
+}
+
+dl, ul, ol, menu, li {
+    list-style: none;
+}
+
+.job_posting_tab li.on a, .job_posting_tab li.on button {
+    position: relative;
+    color: black;
+    font-weight: 500;
+}
+.job_posting_tab li a, .job_posting_tab li button {
+    display: block;
+    font-size: 16px;
+    color: black;
+    padding: 15px 20px;
+    text-decoration: none;
+    outline: none;
+}
+button {
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+}
+

@@ -1,0 +1,19 @@
+.dd{
+	font-size:10px;
+}
+ .box1 {
+  overflow:scroll; 
+  float:left; 
+  width:200px; 
+  height:100px; 
+}
+ .box2 {
+  display:inline-block; 
+  width:800px; 
+  height:100px; 
+}  
+
+.ulist { 
+	list-style: none; 
+}
+

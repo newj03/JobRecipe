@@ -1,0 +1,23 @@
+package com.jobrecipe.review.service;
+
+import java.util.ArrayList;
+
+import com.jobrecipe.review.vo.ReviewVO;
+
+public interface ReviewService {
+
+	ArrayList<ReviewVO> getAllReview(ReviewVO vo); //¸ðµç ¸®ºä
+	
+	void insertReview(ReviewVO vo); //¸®ºä Ãß°¡
+	
+	void reviewCntUp(int rev_no); //¸®ºä ÃßÃµ¼ö Áõ°¡
+	
+	ReviewVO getOneReview(int rev_no); //¸®ºä ÇÑ°³
+	
+	int getReviewCount(String rev_name); //¸®ºä °¹¼ö
+	
+	String getReviewStar(String rev_name); //Æò±Õ ÆòÁ¡
+	
+	void companyStarUpdate(ReviewVO vo); //¸®ºä Ãß°¡ÇÑ È¸»ç Æò±Õ ÆòÁ¡ ¾÷µ¥ÀÌÆ®
+
+}
