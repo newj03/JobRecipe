@@ -33,10 +33,9 @@ input {
 
 <script>
 	$(document).ready(function() {
-		$("#companyTable li").off("click").on("click", function() { //리스트에서 공고 클릭
-			var li = $(this);
-			var p = li.children();
-			var ad_no = p.eq(0).text();
+		$("#companyTable li").on("click", function() { //리스트에서 공고 클릭
+			var one = $(this);
+			var ad_no = one.find("#companyNo").text();
 			$.ajax({
 				type: "post",
 				url: "aInfo.do",
@@ -100,8 +99,9 @@ input {
 					<div id="companyTable">
 						<hr style="margin-bottom:1%; border:solid 1px #fac5a1">
 						<c:forEach var="vo" items="${info }">
+							<li>
 							<div style="display:flex; flex-direction: column;flex-wrap: nowrap;
-								cursor:pointer; margin-left:3%;" onclick="location.href='aAllInfo.do?ad_no=${vo.ad_no }'">
+								cursor:pointer; margin-left:3%;" <%-- onclick="location.href='aAllInfo.do?ad_no=${vo.ad_no }'" --%>>
 								<div id="companyNo" style="display: none;">${vo.ad_no }</div>
 								<div style="display:flex; flex-direction: row;flex-wrap: nowrap;">
 									<div style="font-size:6pt;border:solid 1px #fac5a1;border-radius:5px;
@@ -126,6 +126,7 @@ input {
 							
 								
 							</div>
+							</li>
 							<hr style="margin-bottom:1%; border:solid 1px #fac5a1">
 						</c:forEach>
 					</div>
@@ -154,6 +155,7 @@ input {
 		<div style="width: 60%;border:1px solid #fac5a1 ;display:flex; flex-direction: column;padding-bottom:5%;
 			    border-radius: 13px;">
 			<div id="advertisementOrder">
+			<div class="box2">
 			<div style="overflow:auto; max-height:92vh;padding-left:2%;">
 				<div style="display:flex; flex-direction: row; flex-wrap:nowrap;margin-top:1%;">
 					<img style="border-radius: 30px;width:15%;" src="/resources/images/default_comp.png"/>
@@ -387,6 +389,7 @@ input {
 				<br>
 
 			</div>
+		</div>
 		</div>	
 		</div>
 		<div style="width: 24%;margin-left:1%; align-items:center;display:flex; flex-direction: column;
