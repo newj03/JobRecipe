@@ -141,15 +141,6 @@ input, textarea {
 		<!-- 전체화면 -->
 		
 			<div style="width: 15%;	 margin-left: 3%;">
-			<!--  left -->
-				<!-- <div style="display:flex; flex-direction: column; border">
-					<img style="height:17vh;" src="/resources/images/default_user.png">
-					<div>이름</div>
-					<div>아이디</div>
-					<div>...</div>
-					<div>...</div>
-					<div>...</div>
-				</div> -->
 			</div>
 			
 			<div style="width: 60%;display:flex; flex-direction: column;margin-bottom:5%; ">
@@ -296,8 +287,7 @@ input, textarea {
 								</div>
 								<textarea name="rev_title" id="rev_title"
 										required="required" cols="40" rows="2" style="resize: none;width:45%;"
-										placeholder="최소 30자 이상 기재해 주세요.">
-								</textarea>
+										placeholder="최소 30자 이상 기재해 주세요."></textarea>
 								<div style="width:15%;font-size:12pt;padding-top:3%;margin-left:3%">
 									최소 30자
 								</div>
@@ -313,8 +303,7 @@ input, textarea {
 								</div>
 								<textarea name="rev_advan" id="rev_advan"
 										required="required" cols="40" rows="5" style="resize: none;width:45%;"
-										placeholder="최소 30자 이상 기재해 주세요.">
-								</textarea>
+										placeholder="최소 30자 이상 기재해 주세요."></textarea>
 								<div style="width:15%;font-size:12pt;padding-top:3%;margin-left:3%">
 									최소 30자
 								</div>
@@ -330,8 +319,7 @@ input, textarea {
 								</div>
 								<textarea name="rev_weak" id="rev_weak"
 										required="required" cols="40" rows="2" style="resize: none;width:45%;"
-										placeholder="최소 30자 이상 기재해 주세요.">
-								</textarea>
+										placeholder="최소 30자 이상 기재해 주세요."></textarea>
 								<div style="width:15%;font-size:12pt;padding-top:3%;margin-left:3%">
 									최소 30자
 								</div>
@@ -346,8 +334,7 @@ input, textarea {
 								</div>
 								<textarea name="rev_wish" id="rev_wish"
 										required="required" cols="40" rows="2" style="resize: none;width:45%;"
-										placeholder="최소 30자 이상 기재해 주세요.">
-								</textarea>
+										placeholder="최소 30자 이상 기재해 주세요."></textarea>
 								<div style="width:15%;font-size:12pt;padding-top:3%;margin-left:3%">
 									최소 30자
 								</div>
@@ -384,118 +371,5 @@ input, textarea {
 	<footer>
 		<jsp:include page="../include/footer.jsp"></jsp:include>
 	</footer>
-		
-	
-
-	<%-- <h1>${rev_name }</h1>
-	
-	<form action="insertReview.do" onsubmit="return insert_Review_Check()">
-	<input type="hidden" name="rev_name" value="${rev_name }">
-	<table>
-		<tr>
-			<td>현직장/전직장</td>
-			<td>
-				<label><input type="radio" name="rev_state" value="현직장">현직장</label>
-				<label><input type="radio" name="rev_state" value="전직장">전직장</label>
-			</td>
-		</tr>
-		<tr>
-			<td>직무</td>
-			<td>
-				<input type="text" id="checkJob" name="rev_job" required="required" placeholder="찾기" onclick="review_checkJob()">
-				<input type="button" id="modalBtn" value="찾기" data-toggle="modal" data-target="#myModal">
- 
-			    <div class="modal fade" id="myModal" role="dialog">
-			    	<div class="modal-dialog">
-			    		<div class="modal-content"> 
-			    			<div class="modal-header">
-			    				<b>직무 선택</b>
-			    				<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-			    			</div>
-			    			<div class="modal-body">
-			    				<p>
-			    					<label><input type="radio" name="job" value="QA">QA</label> &nbsp;&nbsp;&nbsp;
-						    		<label><input type="radio" name="job" value="프로젝트매니저">프로젝트매니저</label> <br>
-						    		<label><input type="radio" name="job" value="모바일앱개발">모바일앱개발</label> &nbsp;&nbsp;&nbsp;
-						    		<label><input type="radio" name="job" value="웹개발">웹개발</label> <br>
-						    		<label><input type="radio" name="job" value="DBA">DBA</label> &nbsp;&nbsp;&nbsp;
-						    		<label><input type="radio" name="job" value="시스템엔지니어">시스템엔지니어</label> <br>
-						    		<label><input type="radio" name="job" value="소프트웨어엔지니어">소프트웨어엔지니어</label> &nbsp;&nbsp;&nbsp;
-						    		<label><input type="radio" name="job" value="하드웨어엔지니어">하드웨어엔지니어</label> <br>
-						    		<label><input type="radio" name="job" value="네트워크/보안/운영">네트워크/보안/운영</label> &nbsp;&nbsp;&nbsp;
-						    		<label><input type="radio" name="job" value="게임개발">게임개발</label> <br>
-						    		
-						    		<input type="button" value="선택" data-dismiss="modal" onclick="review_job_check()">
-			    				</p>
-			    			</div>
-			    		</div>
-			    	</div>		
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>고용형태</td>
-			<td>
-				<label><input type="radio" name="rev_emp" value="정규직">정규직</label>
-				<label><input type="radio" name="rev_emp" value="계약직">계약직</label>
-				<label><input type="radio" name="rev_emp" value="인턴">인턴</label>
-			</td>
-		</tr>
-	</table>
-	* 경력 정보는 노출되지 않습니다. (현재, 또는 퇴직 당시의 경력 정보를 입력해 주세요.)
-	
-	<br><br><br>
-	
-	<table>
-		<tr>
-			<td>기업 총 평가</td>
-			<td>
-				<div class="review_star">
-					<span class="star1 on" id="0.5"></span>
-					<span class="star2" id="1.0"></span>
-					<span class="star1" id="1.5"></span>
-					<span class="star2" id="2.0"></span>
-					<span class="star1" id="2.5"></span>
-					<span class="star2" id="3.0"></span>
-					<span class="star1" id="3.5"></span>
-					<span class="star2" id="4.0"></span>
-					<span class="star1" id="4.5"></span>
-					<span class="star2" id="5.0"></span>
-				</div>
-				<input type="hidden" id="rev_star" name="rev_star" value="0.5">
-			</td>
-		</tr>
-		<tr>	
-			<td>기업 한줄 평</td>
-			<td>
-				<textarea name="rev_title" id="rev_title" required="required" cols="40" rows="2" style="resize: none;" placeholder="최소 30자 이상 기재해 주세요."></textarea>
-				최소 30자<span id="titleText" style="color: red;"><b>√</b></span>
-			</td>
-		</tr>
-		<tr>
-			<td>기업의 장점</td>
-			<td>
-				<textarea name="rev_advan" id="rev_advan" required="required" cols="40" rows="5" style="resize: none;" placeholder="최소 30자 이상 기재해 주세요."></textarea>
-				최소 30자<span id="advanText" style="color: red;"><b>√</b></span>
-			</td>
-		</tr>
-		<tr>
-			<td>기업의 단점</td>
-			<td>
-				<textarea name="rev_weak" id="rev_weak" required="required" cols="40" rows="5" style="resize: none;" placeholder="최소 30자 이상 기재해 주세요."></textarea>
-				최소 30자<span id="weakText" style="color: red;"><b>√</b></span>
-			</td>
-		</tr>
-		<tr>
-			<td>경영진에게 바라는 점</td>
-			<td>
-				<textarea name="rev_wish" id="rev_wish" required="required" cols="40" rows="5" style="resize: none;" placeholder="최소 30자 이상 기재해 주세요."></textarea>
-				최소 30자<span id="wishText" style="color: red;"><b>√</b></span>
-			</td>
-		</tr>
-	</table>
-	<input type="submit" value="추가">
-	</form>
- --%>
 </body>
 </html>
